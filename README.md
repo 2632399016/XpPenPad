@@ -1,8 +1,9 @@
 # XpPenPad
 
-把 **Gaomon 1060PRO 数位板侧键** 变成 Xournal++ 的高效操控：侧键 1 = 切换手形平移，侧键 2 = 弹出**圆盘笔刷预设菜单**（8 格，可选钢笔 / 荧光笔 / 橡皮 / 手形等，每格带颜色与粗细）。配套一个 Xournal++ Lua 插件，把圆盘选择实时下发到画布；所有改动**无需重启 Xournal++ 即可生效**。
+把 **Gaomon 1060PRO 数位板侧键** 变成 Xournal++ 的高效操控：侧键 1 = 切换手形平移，侧键 2 = 弹出**圆盘笔刷预设菜单**（8 格，可选钢笔 / 荧光笔 / 橡皮 / 手形等，每格带颜色与粗细）。配套一个 Xournal++ Lua 插件（`drawboard-pen`），把圆盘选择实时下发到画布；所有改动**无需重启 Xournal++ 即可生效**。
 
-> 适用：Windows + Xournal++（原生不支持数位板侧键）。驱动用 .NET 9 自包含单文件，常驻系统托盘。
+> **依赖 Xournal++**（必需）：官网 https://xournalpp.github.io/ · GitHub https://github.com/xournalpp/xournalpp
+> XpPenPad 是 Xournal++ 的配套外挂，单独用没有意义。驱动用 .NET 9 自包含单文件，常驻系统托盘。
 
 ## 功能特性
 - 数位板侧键 → 全局热键（F 键，避开 Xournal++ 菜单助记符冲突）。
@@ -14,12 +15,12 @@
 ## 架构与数据流
 ```
 Gaomon 驱动 -> 裸 F 键 -> XpPenPad(常驻, RawInput 全局钩子)
-                              | 侧键1 -> 切换手形平移
-                              | 侧键2 -> 弹出圆盘 -> 选格
-                              v 写入 presets.ini / 发送 Alt+1..8
-            Xournal++ 插件 drawboard-pen (main.lua) 读取 -> 切换工具/颜色/粗细
+                              | 侧键1 -> 切换手形平移（发 F13）
+                              | 侧键2 -> 弹出圆盘 -> 选格（发 Alt+1..8）
+                              v 快捷键
+            Xournal++ 插件 drawboard-pen (main.lua) 接收 -> 切换工具/颜色/粗细
 ```
-`presets.ini` 是两端共享的单一数据源：插件每次调用都实时重读，所以预设改动天然热生效。
+`presets.ini` 是两端共享的单一数据源（默认在 `%LOCALAPPDATA%\xournalpp\plugins\drawboard-pen\presets.ini`）：插件每次调用都实时重读，所以预设改动天然热生效。
 
 ## 目录结构
 ```
@@ -50,10 +51,15 @@ dotnet publish XpPenPad\XpPenPad.csproj -c Release -r win-x64 --self-contained t
 然后在 Xournal++ 里启用 `drawboard-pen` 插件。
 
 ## 使用
-1. Gaomon 驱动里把两个侧键设为**裸 F 键**（不加修饰键，仅脉冲触发）。
-2. 运行 `XpPenPad.exe`，托盘出现图标。
-3. 侧键 1：切换手形 / 平移；侧键 2：弹出圆盘，转动笔或方向选择格子，松手确认。
-4. 托盘「设置…」→「圆盘预设」可视化编辑 8 格；改工具 / 颜色 / 粗细名称自动变；保存即生效。
+1. 安装并运行一次 Xournal++，让它生成配置目录。
+2. 把 `plugins/drawboard-pen` 复制到 `%LOCALAPPDATA%\xournalpp\plugins\drawboard-pen`（小工具与插件共享此处的 `presets.ini`）。
+3. Gaomon 驱动里把两个侧键设为**裸 F 键**（不加修饰键，仅脉冲触发）。
+4. 运行 `XpPenPad.exe`，托盘出现图标。
+5. 侧键 1：切换手形 / 平移；侧键 2：弹出圆盘，转动笔或方向选择格子，松手确认。
+6. 托盘「设置…」→「圆盘预设」可视化编辑 8 格；改工具 / 颜色 / 粗细名称自动变；保存即生效。
+
+## 开箱即用（Release）
+嫌自己构建麻烦，可直接下载 Release 里的 `XpPenPad-v1.0.0.zip`：已含 `XpPenPad.exe` + 5 个原生 DLL + 示例配置 + `plugins/drawboard-pen` 插件，**解压即跑**（仍需先装 Xournal++ 并启用插件）。详见压缩包内 `README.txt` 与上方安装步骤。
 
 ## 已知限制
 - 仅 Windows；依赖 Xournal++ 插件通道（`Alt+1..8`）。

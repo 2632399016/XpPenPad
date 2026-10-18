@@ -4,6 +4,7 @@
 > 定位：**Windows 常驻小工具 + Xournal++ Lua 插件**，把高漫 1060PRO 数位笔的两个侧键，
 > 变成「侧键1 = 切换式手型平移」「侧键2 = 圆盘选笔」。
 > 全程**不编译 Xournal++**，纯外挂。
+> 依赖 Xournal++（必需）：官网 https://xournalpp.github.io/ · GitHub https://github.com/xournalpp/xournalpp
 
 ---
 
