@@ -1,0 +1,18 @@
+# .NET build output
+XpPenPad/bin/
+XpPenPad/obj/
+
+# Published self-contained app: large single-file exe (~143MB) + 5 native DLLs.
+# Get ready-to-run builds from GitHub Releases instead of committing them.
+XpPenPad/dist/
+
+# Runtime logs and temporary data
+*.log
+*.csv
+menu_shot.png
+raw_calib.csv
+
+# OS / editor cruft
+Thumbs.db
+Desktop.ini
+.vs/
