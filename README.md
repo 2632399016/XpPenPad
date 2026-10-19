@@ -52,8 +52,9 @@ dotnet publish XpPenPad\XpPenPad.csproj -c Release -r win-x64 --self-contained t
 
 ## 使用
 1. 安装并运行一次 Xournal++，让它生成配置目录。
-2. 把 `plugins/drawboard-pen` 复制到 `%LOCALAPPDATA%\xournalpp\plugins\drawboard-pen`（小工具与插件共享此处的 `presets.ini`）。
-3. Gaomon 驱动里把两个侧键设为**裸 F 键**（不加修饰键，仅脉冲触发）。
+2. 把 `plugins/drawboard-pen` 复制到 `%LOCALAPPDATA%\xournalpp\plugins\drawboard-pen`（小工具与插件共享此处的 `presets.ini`）。'''<img width="685" height="145" alt="image" src="https://github.com/user-attachments/assets/1542ef0b-57af-46e7-979c-69c7a185a2df" />'''
+
+3. Gaomon 驱动里把两个侧键设为**裸 F 键**（如F3、F4）。
 4. 运行 `XpPenPad.exe`，托盘出现图标。
 5. 侧键 1：切换手形 / 平移；侧键 2：弹出圆盘，转动笔或方向选择格子，松手确认。
 6. 托盘「设置…」→「圆盘预设」可视化编辑 8 格；改工具 / 颜色 / 粗细名称自动变；保存即生效。
