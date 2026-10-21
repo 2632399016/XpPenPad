@@ -15,6 +15,12 @@
     <ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
     <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
     <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <ApplicationIcon>app.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <!-- expose the same icon to the tray at runtime -->
+    <EmbeddedResource Include="app.ico" LogicalName="XpPenPad.app.ico" />
+  </ItemGroup>
 
 </Project>

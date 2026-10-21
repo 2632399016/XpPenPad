@@ -1,3 +1,5 @@
+<p align="center"><img src="docs/icon.png" width="128" alt="XpPenPad icon"></p>
+
 # XpPenPad
 
 把 **Gaomon 1060PRO 数位板侧键** 变成 Xournal++ 的高效操控：侧键 1 = 切换手形平移，侧键 2 = 弹出**圆盘笔刷预设菜单**（8 格，可选钢笔 / 荧光笔 / 橡皮 / 手形等，每格带颜色与粗细）。配套一个 Xournal++ Lua 插件（`drawboard-pen`），把圆盘选择实时下发到画布；所有改动**无需重启 Xournal++ 即可生效**。

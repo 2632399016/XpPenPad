@@ -15,6 +15,18 @@ internal static class Program
     private const string MutexName = @"Local\XpPenPad.SingleInstance";
     private static Mutex _appMutex;   // 持有到进程退出，保证单实例
 
+    // 托盘图标：读取嵌入的 app.ico（csproj 的 EmbeddedResource）；失败则退回系统图标
+    private static Icon AppIcon()
+    {
+        try
+        {
+            using var s = typeof(Program).Assembly.GetManifestResourceStream("XpPenPad.app.ico");
+            if (s != null) return new Icon(s);
+        }
+        catch { }
+        return SystemIcons.Application;
+    }
+
     [STAThread]
     private static int Main(string[] args)
     {
@@ -308,7 +320,7 @@ internal static class Program
 
         using var tray = new NotifyIcon
         {
-            Icon = SystemIcons.Application,
+            Icon = AppIcon(),
             Visible = true,
             Text = "XpPenPad · 数位板笔控",
         };
